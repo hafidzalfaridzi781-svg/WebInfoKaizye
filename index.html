@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizye info</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a14;
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background dengan bintang membentuk zodiak */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .constellation-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        }
+        
+        /* Container utama */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff3366, #33ccff, #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #a0a0ff;
+            margin-bottom: 20px;
+        }
+        
+        /* Card */
+        .card {
+            background-color: rgba(20, 20, 35, 0.85);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(100, 100, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .card-title {
+            color: #33ccff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: #ff3366;
+        }
+        
+        /* Link box */
+        .link-box {
+            display: flex;
+            align-items: center;
+            background: rgba(40, 40, 70, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s, background 0.3s;
+            border-left: 4px solid #33ccff;
+        }
+        
+        .link-box:hover {
+            transform: translateX(10px);
+            background: rgba(50, 50, 90, 0.9);
+        }
+        
+        .link-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: #ffcc00;
+        }
+        
+        .link-text {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 5px;
+        }
+        
+        .link-url {
+            color: #a0a0ff;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        
+        /* Admin section */
+        .admin-section {
+            display: flex;
+            align-items: center;
+            background: rgba(40, 40, 70, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #ff3366;
+        }
+        
+        .admin-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+            color: #ff3366;
+        }
+        
+        .admin-text h3 {
+            color: #ff3366;
+            margin-bottom: 10px;
+        }
+        
+        .admin-number {
+            font-size: 1.5rem;
+            color: #33ccff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .admin-note {
+            color: #ffcc00;
+            font-style: italic;
+            background: rgba(255, 204, 0, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            color: #8080b3;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(100, 100, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .admin-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* Animasi */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .twinkle {
+            animation: twinkle 3s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background dengan bintang membentuk zodiak -->
+    <div id="starfield"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="logo">KAIZYE</h1>
+            <p class="tagline">GB Cheat Mod Menu - Game Booster Ultimate</p>
+        </header>
+        
+        <!-- Informasi link -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-gamepad"></i> Informasi GB Cheat Mod Menu</h2>
+            
+            <div class="link-box">
+                <div class="link-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">GB Cheat Mod Menu WhatsApp Group</div>
+                    <div class="link-url">https://chat.whatsapp.com/B8mSjbiPikJ8GiNGkDVYpN?mode=gi_t</div>
+                </div>
+            </div>
+            
+            <div class="link-box">
+                <div class="link-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Saluran Testy WhatsApp Channel</div>
+                    <div class="link-url">https://whatsapp.com/channel/0029Vb72gOz4dTnLFa0Gen0G</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informasi admin -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-headset"></i> Informasi Admin</h2>
+            
+            <div class="admin-section">
+                <div class="admin-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-text">
+                    <h3>Admin Kaizye</h3>
+                    <div class="admin-number">088229286129</div>
+                    <p>Hubungi admin untuk pembelian file gacor dan informasi lainnya.</p>
+                    <div class="admin-note">Kirim pesan dengan format: "MIN MAU BELI FILE GACOR"</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informasi tambahan -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-info-circle"></i> Informasi Tambahan</h2>
+            <p>Kaizye menyediakan berbagai mod menu untuk game-game populer dengan fitur-fitur unggulan:</p>
+            <ul style="margin-left: 20px; margin-top: 15px; line-height: 1.8;">
+                <li>Mod menu untuk berbagai game populer</li>
+                <li>Fitur cheat yang aman dan sulit terdeteksi</li>
+                <li>Update rutin untuk menjaga kompatibilitas</li>
+                <li>Dukungan dari admin yang responsif</li>
+                <li>File gacor untuk performa maksimal</li>
+            </ul>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>© 2023 Kaizye - GB Cheat Mod Menu. Semua hak dilindungi.</p>
+            <p style="margin-top: 10px;">Website ini hanya untuk tujuan informasi.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Membuat background bintang membentuk zodiak
+        document.addEventListener('DOMContentLoaded', function() {
+            const starfield = document.getElementById('starfield');
+            const constellations = {
+                // Koordinat untuk beberapa rasi bintang populer
+                aries: [[20, 20], [40, 30], [60, 25], [80, 35]],
+                taurus: [[25, 60], [45, 70], [65, 65], [85, 75], [70, 50]],
+                gemini: [[15, 40], [30, 50], [50, 45], [70, 55]],
+                cancer: [[30, 80], [50, 85], [70, 80], [90, 90]],
+                leo: [[75, 30], [85, 40], [95, 35], [80, 20]],
+                virgo: [[10, 70], [25, 75], [40, 80], [55, 70]],
+                libra: [[60, 15], [75, 25], [90, 20], [80, 10]],
+                scorpio: [[40, 40], [55, 45], [70, 50], [85, 40]],
+                sagittarius: [[15, 15], [30, 25], [45, 20], [60, 30]],
+                capricorn: [[20, 85], [35, 90], [50, 85], [65, 95]],
+                aquarius: [[85, 60], [70, 65], [55, 70], [40, 65]],
+                pisces: [[90, 80], [75, 85], [60, 90], [45, 85]]
+            };
+            
+            // Buat bintang
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Ukuran acak
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Posisi acak
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                
+                // Animasi berkedip acak
+                if (Math.random() > 0.7) {
+                    star.classList.add('twinkle');
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                }
+                
+                // Kecerahan acak
+                const brightness = Math.random() * 0.7 + 0.3;
+                star.style.opacity = brightness;
+                
+                starfield.appendChild(star);
+            }
+            
+            // Buat garis penghubung untuk rasi bintang
+            for (const constellation in constellations) {
+                const stars = constellations[constellation];
+                
+                for (let i = 0; i < stars.length - 1; i++) {
+                    const line = document.createElement('div');
+                    line.className = 'constellation-line';
+                    
+                    const [x1, y1] = stars[i];
+                    const [x2, y2] = stars[i + 1];
+                    
+                    // Hitung panjang dan sudut garis
+                    const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                    
+                    // Atur posisi dan ukuran garis
+                    line.style.width = `${length}%`;
+                    line.style.left = `${x1}%`;
+                    line.style.top = `${y1}%`;
+                    line.style.transform = `rotate(${angle}deg)`;
+                    line.style.transformOrigin = '0 0';
+                    line.style.opacity = 0.1 + Math.random() * 0.2;
+                    
+                    starfield.appendChild(line);
+                }
+            }
+            
+            // Tambahkan beberapa bintang besar untuk zodiak tertentu
+            const zodiacStars = [
+                { constellation: 'scorpio', x: 60, y: 45, size: 4 },
+                { constellation: 'leo', x: 85, y: 35, size: 5 },
+                { constellation: 'taurus', x: 45, y: 70, size: 4 },
+                { constellation: 'aquarius', x: 70, y: 65, size: 4 }
+            ];
+            
+            zodiacStars.forEach(starInfo => {
+                const bigStar = document.createElement('div');
+                bigStar.className = 'star twinkle';
+                bigStar.style.width = `${starInfo.size}px`;
+                bigStar.style.height = `${starInfo.size}px`;
+                bigStar.style.left = `${starInfo.x}%`;
+                bigStar.style.top = `${starInfo.y}%`;
+                bigStar.style.opacity = 0.9;
+                bigStar.style.backgroundColor = '#ffcc00';
+                bigStar.style.boxShadow = '0 0 10px #ffcc00';
+                starfield.appendChild(bigStar);
+            });
+        });
+        
+        // Efek hover untuk card
+        document.querySelectorAll('.link-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 20px rgba(51, 204, 255, 0.5)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
